@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::XML.
 
+0.06	Fri May 16 23:37:30 BST 2003
+	- Allow is_xpath() to choose one of XML::XPath or XML::LibXML.
+
 0.05	Thu May 15 00:30:52 BST 2003
 	- Added is_xpath(), based on a suggestion by Mark Fowler
 
@@ -20,4 +23,4 @@ Revision history for Perl extension Test::XML.
 0.01	Fri Mar 14 14:59:03 GMT 2003
 	- original version
 
-@(#) $Id: Changes,v 1.8 2003/05/14 23:34:48 dom Exp $
+@(#) $Id: Changes,v 1.9 2003/05/16 22:39:00 dom Exp $

@@ -1,18 +1,20 @@
 package Test::XML::XPath;
-# @(#) $Id: XPath.pm,v 1.3 2003/05/14 23:36:56 dom Exp $
+# @(#) $Id: XPath.pm,v 1.7 2003/05/16 22:37:10 dom Exp $
 
 use strict;
 use warnings;
 
 use Carp;
 use Test::More;
-use Test::XML;
 use Test::Builder;
-use XML::XPath;
 
 use vars qw( $VERSION );
 
-$VERSION = '0.02';
+$VERSION = '0.03';
+
+# Call this early so that lack of a suitable class will be picked up
+# when we're imported, not on first use.
+_find_xpath_class();
 
 my $Test = Test::Builder->new;
 
@@ -25,9 +27,10 @@ sub import {
     my $caller = caller;
 
     no strict 'refs';
-    *{ $caller . '::like_xpath' }   = \&like_xpath;
-    *{ $caller . '::unlike_xpath' } = \&unlike_xpath;
-    *{ $caller . '::is_xpath' }     = \&is_xpath;
+    *{ $caller . '::is_xpath' }            = \&is_xpath;
+    *{ $caller . '::like_xpath' }          = \&like_xpath;
+    *{ $caller . '::set_xpath_processor' } = \&set_xpath_processor;
+    *{ $caller . '::unlike_xpath' }        = \&unlike_xpath;
 
     $Test->exported_to( $caller );
     $Test->plan( @_ );
@@ -42,7 +45,7 @@ sub like_xpath {
     croak "usage: like_xpath(xml,xpath[,name])"
       unless $input && $statement;
     my $ok = eval {
-        my $xp = XML::XPath->new( xml => $input );
+        my $xp = _make_xpath( $input );
         return $xp->exists( $statement );
     };
     if ($@) {
@@ -64,7 +67,7 @@ sub unlike_xpath {
     croak "usage: unlike_xpath(xml,xpath[,name])"
       unless $input && $statement;
     my $ok = eval {
-        my $xp = XML::XPath->new( xml => $input );
+        my $xp = _make_xpath( $input );
         return ! $xp->exists( $statement );
     };
     if ($@) {
@@ -86,7 +89,7 @@ sub is_xpath {
     croak "usage: is_xpath(xml,xpath,expected[,name])"
       unless $input && $statement && $expected;
     my $got = eval {
-        my $xp = XML::XPath->new( xml => $input );
+        my $xp = _make_xpath( $input );
         $xp->findvalue( $statement );
     };
     if ($@) {
@@ -100,6 +103,64 @@ sub is_xpath {
             diag( "     against: $input" );
         }
         return $retval;
+    }
+}
+
+#---------------------------------------------------------------------
+# Abstract interface to XPath processing.
+#---------------------------------------------------------------------
+
+{
+    my $xpath_class;
+    sub set_xpath_processor {
+        $xpath_class = join('::', __PACKAGE__, @_ );
+    }
+    sub _make_xpath {
+        $xpath_class ||= _find_xpath_class();
+        return $xpath_class->new( @_ );
+    }
+}
+
+sub _find_xpath_class {
+    foreach (qw( XML::LibXML XML::XPath )) {
+        eval "use $_";
+        return __PACKAGE__ . "::$_" unless $@;
+    }
+    # Ooops, we're unusable.
+    die $@;
+}
+
+{
+    package Test::XML::XPath::XML::XPath;
+    sub new {
+        my $class = shift;
+        bless { xpath => XML::XPath->new( xml => @_ ) }, $class;
+    }
+    sub exists {
+        my $self = shift;
+        return $self->{xpath}->exists( @_ );
+    }
+    sub findvalue {
+        my $self = shift;
+        return $self->{xpath}->findvalue( @_ );
+    }
+}
+
+{
+    package Test::XML::XPath::XML::LibXML;
+    sub new {
+        my $class = shift;
+        my $p = XML::LibXML->new;
+        bless { xpath => $p->parse_string( @_ ) }, $class;
+    }
+    sub exists {
+        my $self = shift;
+        my @nodes = $self->{xpath}->findnodes( @_ );
+        return @nodes ? 1 : 0;
+    }
+    sub findvalue {
+        my $self = shift;
+        return $self->{xpath}->findvalue( @_ );
     }
 }
 
@@ -134,7 +195,9 @@ Test::XML::XPath - Test XPath assertions
 
 This module allows you to assert statements about your XML in the form
 of XPath statements.  You can say that a piece of XML must contain
-certain tags, with so-and-so attributes, etc.
+certain tags, with so-and-so attributes, etc.  It will try to use any
+installed XPath module that it knows about.  Currently, this means
+XML::LibXML and XML::XPath, in that order.
 
 B<NB>: Normally in XPath processing, the statement occurs from a
 I<context> node.  In the case of like_xpath(), the context node will
@@ -177,6 +240,11 @@ Evaluates XPATH against XML, and pass the test if the is EXPECTED.  Uses
 findvalue() internally.
 
 Returns true or false depending upon test success.
+
+=item set_xpath_processor ( CLASS )
+
+Set the class name of the XPath processor used.  It is up to you to
+ensure that this class is loaded.
 
 =back
 

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: Test-XML
-version: 0.05
+version: 0.06
 license: perl
 distribution_type: module
 requires:
@@ -16,7 +16,7 @@ conflicts: {}
 provides:
   Test::XML:
     file: lib/Test/XML.pm
-    version: 0.05
+    version: 0.06
   Test::XML::SAX:
     file: lib/Test/XML/SAX.pm
     version: 0.01
@@ -25,5 +25,5 @@ provides:
     version: 0.01
   Test::XML::XPath:
     file: lib/Test/XML/XPath.pm
-    version: 0.02
+    version: 0.03
 generated_by: Module::Build version 0.18
