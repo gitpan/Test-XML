@@ -12,3 +12,4 @@ t/basic.t
 t/maint.t
 t/sax.t
 t/twig.t
+t/whitespace.t

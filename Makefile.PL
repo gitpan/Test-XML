@@ -1,4 +1,4 @@
-# @(#) $Id: Makefile.PL,v 1.1.1.1 2003/03/14 15:01:51 dom Exp $
+# @(#) $Id: Makefile.PL,v 1.2 2003/03/14 16:01:01 dom Exp $
 
 use strict;
 
@@ -12,7 +12,8 @@ WriteMakefile(
         'Test::More'        => 0,
         'XML::SemanticDiff' => 0.95,
     },
-    AUTHOR        => 'Dominic Mitchell <cpan@semantico.com>'
+    AUTHOR   => 'Dominic Mitchell <cpan@semantico.com>',
+    PL_FILES => {},                                        # To ignore Build.PL.
 );
 
 # Local Variables:

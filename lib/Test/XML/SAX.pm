@@ -1,10 +1,8 @@
 package Test::XML::SAX;
-# @(#) $Id: SAX.pm,v 1.1.1.1 2003/03/14 15:01:51 dom Exp $
+# @(#) $Id: SAX.pm,v 1.2 2003/03/14 16:47:06 dom Exp $
 
 use strict;
 use warnings;
-
-use base 'Exporter';
 
 use Carp;
 use Test::More;
@@ -14,18 +12,28 @@ use XML::SAX;
 use XML::SAX::ParserFactory;
 use XML::SAX::Writer;
 
-use vars qw( $VERSION @EXPORT );
+use vars qw( $VERSION );
 
 $VERSION = '0.01';
-@EXPORT  = qw( test_sax test_all_sax_parsers );
 
 my $Test = Test::Builder->new;
+
+sub import {
+    my $self   = shift;
+    my $caller = caller;
+
+    no strict 'refs';
+    *{ $caller . '::test_sax' }             = \&test_sax;
+    *{ $caller . '::test_all_sax_parsers' } = \&test_all_sax_parsers;
+
+    $Test->exported_to( $caller );
+    $Test->plan( @_ );
+}
 
 sub test_sax {
     my ( $handler, $input, $expected, $test_name ) = @_;
     croak "usage: test_sax(handler,input,expected,[test_name])"
         unless $handler && ref $handler && $input && $expected;
-    local $Test::Builder::Level = $Test::Builder::Level + 1;
 
     my $result = '';
     eval {
@@ -69,8 +77,7 @@ Test::XML::SAX - Test XML::SAX handlers
 
 =head1 SYNOPSIS
 
-  use Test::More tests => 1;
-  use Test::XML::SAX;
+  use Test::XML::SAX tests => 1;
   use My::XML::Filter;
 
   my $handler = My::XML::Filter->new;
@@ -93,7 +100,7 @@ This module is for testing XML::SAX handlers.
 
 =head1 FUNCTIONS
 
-All functions are exported by default.
+All functions are exported.
 
 =over 4
 

@@ -1,10 +1,8 @@
 package Test::XML::Twig;
-# @(#) $Id: Twig.pm,v 1.1.1.1 2003/03/14 15:01:51 dom Exp $
+# @(#) $Id: Twig.pm,v 1.2 2003/03/14 16:47:06 dom Exp $
 
 use strict;
 use warnings;
-
-use base 'Exporter';
 
 use Carp;
 use Test::More;
@@ -12,12 +10,24 @@ use Test::XML;
 use Test::Builder;
 use XML::Twig;
 
-use vars qw( $VERSION @EXPORT );
+use vars qw( $VERSION );
 
 $VERSION = '0.01';
-@EXPORT  = qw( get_twig test_twig_handler test_twig_handlers );
 
 my $Test = Test::Builder->new;
+
+sub import {
+    my $self   = shift;
+    my $caller = caller;
+
+    no strict 'refs';
+    *{ $caller . '::get_twig' }           = \&get_twig;
+    *{ $caller . '::test_twig_handler' }  = \&test_twig_handler;
+    *{ $caller . '::test_twig_handlers' } = \&test_twig_handlers;
+
+    $Test->exported_to( $caller );
+    $Test->plan( @_ );
+}
 
 # Just a useful convenience function.
 sub get_twig {
@@ -91,8 +101,7 @@ Test::XML::Twig - Test XML::Twig handlers
 
 =head1 SYNOPSIS
 
-  use Test::More tests => 2;
-  use Test::XML::Twig;
+  use Test::XML::Twig tests => 2;
   use My::Twig qw( handler );
 
   test_twig_handler(
@@ -113,7 +122,7 @@ This module is for testing XML::Twig handlers.
 
 =head1 FUNCTIONS
 
-All functions are exported by default.
+All functions are exported.
 
 =over 4
 
