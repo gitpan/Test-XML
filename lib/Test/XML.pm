@@ -1,5 +1,5 @@
 package Test::XML;
-# @(#) $Id: XML.pm,v 1.7 2003/03/17 15:34:35 dom Exp $
+# @(#) $Id: XML.pm,v 1.8 2003/05/14 23:34:49 dom Exp $
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use XML::SemanticDiff;
 
 use vars qw( $VERSION );
 
-$VERSION   = '0.04';
+$VERSION   = '0.05';
 
 my $Test = Test::Builder->new;
 

@@ -1,5 +1,5 @@
 package Test::XML::XPath;
-# @(#) $Id: XPath.pm,v 1.1 2003/05/11 19:06:53 dom Exp $
+# @(#) $Id: XPath.pm,v 1.3 2003/05/14 23:36:56 dom Exp $
 
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ use XML::XPath;
 
 use vars qw( $VERSION );
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 my $Test = Test::Builder->new;
 
@@ -27,6 +27,7 @@ sub import {
     no strict 'refs';
     *{ $caller . '::like_xpath' }   = \&like_xpath;
     *{ $caller . '::unlike_xpath' } = \&unlike_xpath;
+    *{ $caller . '::is_xpath' }     = \&is_xpath;
 
     $Test->exported_to( $caller );
     $Test->plan( @_ );
@@ -80,6 +81,28 @@ sub unlike_xpath {
     }
 }
 
+sub is_xpath {
+    my ($input, $statement, $expected, $test_name) = @_;
+    croak "usage: is_xpath(xml,xpath,expected[,name])"
+      unless $input && $statement && $expected;
+    my $got = eval {
+        my $xp = XML::XPath->new( xml => $input );
+        $xp->findvalue( $statement );
+    };
+    if ($@) {
+        $Test->ok( 0, $test_name );
+        $Test->diag( "  Parse Failure: $@" );
+        return 0;
+    } else {
+        my $retval = $Test->is_eq( $got, $expected, $test_name );
+        unless ( $retval ) {
+            diag( "  evaluating: $statement" );
+            diag( "     against: $input" );
+        }
+        return $retval;
+    }
+}
+
 1;
 __END__
 
@@ -93,6 +116,9 @@ Test::XML::XPath - Test XPath assertions
   like_xpath( '<foo />', '/foo' );   # PASS
   like_xpath( '<foo />', '/bar' );   # FAIL
   unlike_xpath( '<foo />', '/bar' ); # PASS
+
+  is_xpath( '<foo>bar</foo>', '/foo', 'bar' ); # PASS
+  is_xpath( '<foo>bar</foo>', '/bar', 'foo' ); # FAIL
 
   # More interesting examples of xpath assertions.
   my $xml = '<foo attrib="1"><bish><bosh args="42">pub</bosh></bish></foo>';
@@ -142,6 +168,13 @@ Returns true or false depending upon test success.
 
 This is the reverse of like_xpath().  The test will only pass if XPATH
 I<does not> generates any matches in XML.
+
+Returns true or false depending upon test success.
+
+=item is_xpath ( XML, XPATH, EXPECTED [, NAME ] )
+
+Evaluates XPATH against XML, and pass the test if the is EXPECTED.  Uses
+findvalue() internally.
 
 Returns true or false depending upon test success.
 

@@ -1,7 +1,10 @@
 Revision history for Perl extension Test::XML.
 
+0.05	Thu May 15 00:30:52 BST 2003
+	- Added is_xpath(), based on a suggestion by Mark Fowler
+
 0.04	Sun May 11 18:33:31 BST 2003
-	- Added Test::XML::XPath, based on an idea from Kake.
+	- Added Test::XML::XPath, based on an idea from Kate Pugh
 	- Document XML::SemanticDiff problems in Test::XML.
 	- Add TODO tests for XML::SemanticDiff problems.
 
@@ -17,4 +20,4 @@ Revision history for Perl extension Test::XML.
 0.01	Fri Mar 14 14:59:03 GMT 2003
 	- original version
 
-@(#) $Id: Changes,v 1.7 2003/05/11 19:06:52 dom Exp $
+@(#) $Id: Changes,v 1.8 2003/05/14 23:34:48 dom Exp $
