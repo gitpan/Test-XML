@@ -1,0 +1,14 @@
+--- #YAML:1.0
+name: Test-XML
+version: 0.01
+license: perl
+distribution_type: module
+requires:
+  Test::More: 0
+  XML::SemanticDiff: 0.95
+recommends:
+  XML::SAX: 0.11
+  XML::Twig: 3.09
+build_requires: {}
+conflicts: {}
+generated_by: Module::Build version 0.16
