@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::XML.
 
+0.03	Mon Mar 17 09:39:27 GMT 2003
+	- Update reccomends list in Build.PL.
+	- Fix tests to skip correctly in absence of modules.
+
 0.02	Fri Mar 14 16:03:46 GMT 2003
 	- Added proper exports, based on Test::Pod.
 	- Added isnt_xml().
@@ -8,4 +12,4 @@ Revision history for Perl extension Test::XML.
 0.01	Fri Mar 14 14:59:03 GMT 2003
 	- original version
 
-@(#) $Id: Changes,v 1.3 2003/03/14 16:47:14 dom Exp $
+@(#) $Id: Changes,v 1.5 2003/03/17 09:49:21 dom Exp $

@@ -1,18 +1,20 @@
-# @(#) $Id: twig.t,v 1.1.1.1 2003/03/14 15:01:51 dom Exp $
+# @(#) $Id: twig.t,v 1.2 2003/03/17 09:45:51 dom Exp $
 
 use strict;
 use warnings;
 
 use Test::More;
 
-eval "use XML::Twig";
-if ( $@ ) {
-    plan skip_all => 'XML::Twig not present';
-} else {
-    eval "use Test::XML::Twig";
-    die if $@;
-    plan tests => 10;
+BEGIN {
+    foreach ( qw( XML::Twig ) ) {
+        eval "use $_";
+        plan skip_all => "$_ not present" if $@;
+    }
 }
+
+use Test::XML::Twig;
+
+plan tests => 10;
 
 #---------------------------------------------------------------------
 

@@ -1,19 +1,17 @@
-# @(#) $Id: sax.t,v 1.1.1.1 2003/03/14 15:01:51 dom Exp $
+# @(#) $Id: sax.t,v 1.2 2003/03/17 09:45:51 dom Exp $
 
 use strict;
 
 use Test::More;
 
-eval "require XML::SAX";
-if ($@) {
-    plan skip_all => 'XML::SAX not present'
-} else {
-    eval "use Test::XML::SAX";
-    die if $@;
-    # For our testing class.
-    eval "use XML::SAX::Base";
-    die if $@;
+BEGIN {
+    foreach ( qw( XML::SAX::Base XML::SAX::Writer ) ) {
+        eval "use $_";
+        plan skip_all => "$_ not present" if $@;
+    }
 }
+
+use Test::XML::SAX;
 
 # A Dummy SAX Filter.
 {
@@ -40,7 +38,7 @@ sub do_tests {
     my $handler = My::XML::Filter->new;
 
     # XXX These should really come seperately as they are not parser
-    # sepcific...
+    # specific...
     eval { test_sax() };
     like( $@, qr/^usage: /, 'test_sax() no args failure' );
     eval { test_sax( $handler ) };

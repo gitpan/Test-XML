@@ -1,4 +1,4 @@
-# @(#) $Id: Build.PL,v 1.2 2003/03/14 15:24:34 dom Exp $
+# @(#) $Id: Build.PL,v 1.3 2003/03/17 09:49:21 dom Exp $
 use strict;
 use Module::Build;
 
@@ -10,7 +10,8 @@ Module::Build->new(
         'XML::SemanticDiff' => 0.95,
     },
     recommends => {
-	'XML::SAX'  => 0.11,
-	'XML::Twig' => 3.09,
+        'XML::SAX'         => 0,
+        'XML::SAX::Writer' => 0,
+        'XML::Twig'        => 0,
     },
 )->create_build_script;
