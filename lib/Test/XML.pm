@@ -1,5 +1,5 @@
 package Test::XML;
-# @(#) $Id: XML.pm,v 1.6 2003/03/17 09:46:32 dom Exp $
+# @(#) $Id: XML.pm,v 1.7 2003/03/17 15:34:35 dom Exp $
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use XML::SemanticDiff;
 
 use vars qw( $VERSION );
 
-$VERSION   = '0.03';
+$VERSION   = '0.04';
 
 my $Test = Test::Builder->new;
 
@@ -116,6 +116,34 @@ Returns true or false, depending upon test success.
 
 This function is similiar to is_xml(), except that it will fail if GOT
 and MUST_NOT_BE are identical.
+
+=back
+
+=head1 NOTES
+
+There are several features of XML::SemanticDiff that may suprise you
+if you are not aware of them.  In particular:
+
+=over 4
+
+=item *
+
+Leading and trailing whitespace is always stripped, even in elements
+with character content.
+
+=item *
+
+Whitespace inside character content is always stripped down to a single
+space.
+
+=item *
+
+In mixed content elements (ie: an element with both text and elements
+beneath it), all text is treated as a single value.
+
+=item *
+
+The order of elements is ignored.
 
 =back
 

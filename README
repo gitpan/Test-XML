@@ -1,10 +1,10 @@
-Test::XML version 0.01
-======================
+Test::XML version
+=================
 
 This module provides tools for testing code which deals with XML.  These
 tools are compatible with the Test::More and Test::Simple modules.  At
 present, there is generic XML comparison support, as well as modules for
-dealing with XML::SAX and XML::Twig handlers.
+dealing with XML::SAX, XML::Twig and XML::XPath handlers.
 
 INSTALLATION
 
@@ -26,6 +26,7 @@ These modules are not required, but will provide more functionality.
 
   XML::SAX
   XML::Twig
+  XML::XPath
 
 COPYRIGHT AND LICENCE
 
@@ -34,4 +35,4 @@ Copyright (C) 2002 semantico <cpan@semantico.com>
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
-# @(#) $id$
+# @(#) $Id: README,v 1.2 2003/05/11 19:06:52 dom Exp $

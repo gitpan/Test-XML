@@ -1,4 +1,4 @@
-# @(#) $Id: Build.PL,v 1.3 2003/03/17 09:49:21 dom Exp $
+# @(#) $Id: Build.PL,v 1.4 2003/05/11 19:06:52 dom Exp $
 use strict;
 use Module::Build;
 
@@ -13,5 +13,6 @@ Module::Build->new(
         'XML::SAX'         => 0,
         'XML::SAX::Writer' => 0,
         'XML::Twig'        => 0,
+        'XML::XPath'       => 0,
     },
 )->create_build_script;

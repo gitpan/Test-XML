@@ -7,9 +7,12 @@ README
 lib/Test/XML.pm
 lib/Test/XML/SAX.pm
 lib/Test/XML/Twig.pm
+lib/Test/XML/XPath.pm
 t/1.t
 t/basic.t
 t/maint.t
+t/order.t
 t/sax.t
 t/twig.t
 t/whitespace.t
+t/xpath.t

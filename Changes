@@ -1,7 +1,12 @@
 Revision history for Perl extension Test::XML.
 
+0.04	Sun May 11 18:33:31 BST 2003
+	- Added Test::XML::XPath, based on an idea from Kake.
+	- Document XML::SemanticDiff problems in Test::XML.
+	- Add TODO tests for XML::SemanticDiff problems.
+
 0.03	Mon Mar 17 09:39:27 GMT 2003
-	- Update reccomends list in Build.PL.
+	- Update recommends list in Build.PL.
 	- Fix tests to skip correctly in absence of modules.
 
 0.02	Fri Mar 14 16:03:46 GMT 2003
@@ -12,4 +17,4 @@ Revision history for Perl extension Test::XML.
 0.01	Fri Mar 14 14:59:03 GMT 2003
 	- original version
 
-@(#) $Id: Changes,v 1.5 2003/03/17 09:49:21 dom Exp $
+@(#) $Id: Changes,v 1.7 2003/05/11 19:06:52 dom Exp $
