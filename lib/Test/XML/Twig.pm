@@ -1,5 +1,5 @@
 package Test::XML::Twig;
-# @(#) $Id: Twig.pm,v 1.2 2003/03/14 16:47:06 dom Exp $
+# @(#) $Id: Twig.pm,v 1.5 2005/07/21 20:10:12 dom Exp $
 
 use strict;
 use warnings;
@@ -10,9 +10,7 @@ use Test::XML;
 use Test::Builder;
 use XML::Twig;
 
-use vars qw( $VERSION );
-
-$VERSION = '0.01';
+our $VERSION = '0.01';
 
 my $Test = Test::Builder->new;
 
@@ -161,7 +159,7 @@ L<Test::More>, L<Test::XML>, L<XML::Twig>.
 
 =head1 AUTHOR
 
-Dominic Mitchell, E<lt>cpan@semantico.comE<gt>
+Dominic Mitchell, E<lt>cpan2 (at) semantico.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

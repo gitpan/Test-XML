@@ -1,5 +1,5 @@
 package Test::XML;
-# @(#) $Id: XML.pm,v 1.9 2003/05/16 22:38:21 dom Exp $
+# @(#) $Id: XML.pm,v 1.14 2005/07/21 20:10:09 dom Exp $
 
 use strict;
 use warnings;
@@ -7,10 +7,9 @@ use warnings;
 use Carp;
 use Test::Builder;
 use XML::SemanticDiff;
+use XML::Parser;
 
-use vars qw( $VERSION );
-
-$VERSION   = '0.06';
+our $VERSION = '0.07';
 
 my $Test = Test::Builder->new;
 
@@ -23,8 +22,10 @@ sub import {
     my $caller = caller;
 
     no strict 'refs';
-    *{ $caller . '::is_xml' }   = \&is_xml;
-    *{ $caller . '::isnt_xml' } = \&isnt_xml;
+    *{ $caller . '::is_xml' }             = \&is_xml;
+    *{ $caller . '::isnt_xml' }           = \&isnt_xml;
+    *{ $caller . '::is_well_formed_xml' } = \&is_well_formed_xml;
+    *{ $caller . '::is_good_xml' }        = \&is_well_formed_xml;
 
     $Test->exported_to( $caller );
     $Test->plan( @_ );
@@ -80,6 +81,24 @@ sub isnt_xml {
     }
 }
 
+sub is_well_formed_xml {
+    my ($input, $test_name) = @_;
+    croak "usage: is_well_formed_xml(input,test_name)"
+        unless defined $input;
+    my $parser = XML::Parser->new;
+    eval { $parser->parse($input) };
+    if ( $@ ) {
+        $Test->ok( 0, $test_name );
+        # Make the output a bit more testable.
+        $@ =~ s/ at \/.*//;
+        $Test->diag( "During parse: $@" );
+        return 0;
+    } else {
+        $Test->ok( 1, $test_name );
+        return 1;
+    }
+}
+
 1;
 __END__
 
@@ -93,6 +112,8 @@ Test::XML - Compare XML in perl tests
   is_xml( '<foo />', '<foo></foo>' );   # PASS
   is_xml( '<foo />', '<bar />' );       # FAIL
   isnt_xml( '<foo />', '<bar />' );     # PASS
+  is_well_formed_xml('<foo/>');               # PASS
+  is_well_formed_xml('<foo>');                # FAIL
 
 =head1 DESCRIPTION
 
@@ -116,6 +137,15 @@ Returns true or false, depending upon test success.
 
 This function is similiar to is_xml(), except that it will fail if GOT
 and MUST_NOT_BE are identical.
+
+=item is_well_formed_xml( XML [, TESTNAME ] )
+
+This function determines whether or not a given XML string is parseable
+as XML.
+
+=item is_good_xml ( XML [, TESTNAME ] )
+
+This is an alias for is_well_formed_xml().
 
 =back
 
@@ -155,7 +185,7 @@ L<Test::More>, L<XML::SemanticDiff>.
 
 =head1 AUTHOR
 
-Dominic Mitchell, E<lt>cpan@semantico.comE<gt>
+Dominic Mitchell, E<lt>cpan2 (at) semantico.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

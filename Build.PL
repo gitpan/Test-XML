@@ -1,4 +1,4 @@
-# @(#) $Id: Build.PL,v 1.4 2003/05/11 19:06:52 dom Exp $
+# @(#) $Id: Build.PL,v 1.6 2005/07/21 20:10:06 dom Exp $
 use strict;
 use Module::Build;
 
@@ -6,8 +6,10 @@ Module::Build->new(
     module_name => 'Test::XML',
     license     => 'perl',
     requires    => {
+        'perl'              => '5.6.0',
         'Test::More'        => 0,
         'XML::SemanticDiff' => 0.95,
+        'XML::Parser'       => 2.34,
     },
     recommends => {
         'XML::SAX'         => 0,

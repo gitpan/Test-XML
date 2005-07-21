@@ -1,5 +1,5 @@
 package Test::XML::XPath;
-# @(#) $Id: XPath.pm,v 1.7 2003/05/16 22:37:10 dom Exp $
+# @(#) $Id: XPath.pm,v 1.10 2005/07/21 20:10:12 dom Exp $
 
 use strict;
 use warnings;
@@ -8,9 +8,7 @@ use Carp;
 use Test::More;
 use Test::Builder;
 
-use vars qw( $VERSION );
-
-$VERSION = '0.03';
+our $VERSION = '0.03';
 
 # Call this early so that lack of a suitable class will be picked up
 # when we're imported, not on first use.
@@ -263,7 +261,7 @@ appears to offer interactive XPath as well as the tutorials.
 
 =head1 AUTHOR
 
-Dominic Mitchell E<lt>cpan@semantico.comE<gt>
+Dominic Mitchell E<lt>cpan2 (at) semantico.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,8 +1,9 @@
-# @(#) $Id: basic.t,v 1.2 2003/03/14 16:22:31 dom Exp $
+# @(#) $Id: basic.t,v 1.5 2005/07/21 20:10:15 dom Exp $
 
 use strict;
+use warnings;
 
-use Test::More tests => 6;
+use Test::More tests => 9;
 use Test::XML;
 
 eval { is_xml() };
@@ -22,6 +23,15 @@ eval { isnt_xml( '<foo/>' ) };
 like( $@, qr/^usage: /, 'isnt_xml() 1 args failure' );
 
 isnt_xml( '<foo />', '<bar />', 'isnt_xml() works' );
+
+#---------------------------------------------------------------------
+
+eval { is_well_formed_xml() };
+like( $@, qr/^usage: /, 'is_well_formed_xml() no args failure' );
+
+is_well_formed_xml( '<foo />', 'first usage example' );
+
+is_good_xml( '<foo />', 'first usage example' );
 
 # Local Variables:
 # mode: cperl

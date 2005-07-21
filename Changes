@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::XML.
 
+0.07	Thu Jul 21 12:44:31 BST 2005
+	- Added is_well_formed_xml() from Curtis Ovid Poe.
+	- Make minimum perl version 5.6.0.
+
 0.06	Fri May 16 23:37:30 BST 2003
 	- Allow is_xpath() to choose one of XML::XPath or XML::LibXML.
 
@@ -23,4 +27,4 @@ Revision history for Perl extension Test::XML.
 0.01	Fri Mar 14 14:59:03 GMT 2003
 	- original version
 
-@(#) $Id: Changes,v 1.9 2003/05/16 22:39:00 dom Exp $
+@(#) $Id: Changes,v 1.12 2005/07/21 20:13:11 dom Exp $

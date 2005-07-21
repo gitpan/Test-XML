@@ -1,5 +1,5 @@
 package Test::XML::SAX;
-# @(#) $Id: SAX.pm,v 1.2 2003/03/14 16:47:06 dom Exp $
+# @(#) $Id: SAX.pm,v 1.5 2005/07/21 20:10:11 dom Exp $
 
 use strict;
 use warnings;
@@ -12,9 +12,7 @@ use XML::SAX;
 use XML::SAX::ParserFactory;
 use XML::SAX::Writer;
 
-use vars qw( $VERSION );
-
-$VERSION = '0.01';
+our $VERSION = '0.01';
 
 my $Test = Test::Builder->new;
 
@@ -133,7 +131,7 @@ L<Test::More>, L<Test::XML>, L<XML::SAX>.
 
 =head1 AUTHOR
 
-Dominic Mitchell, E<lt>cpan@semantico.comE<gt>
+Dominic Mitchell, E<lt>cpan2 (at) semantico.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

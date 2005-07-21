@@ -1,5 +1,6 @@
-# @(#) $Id: whitespace.t,v 1.1 2003/03/14 16:24:26 dom Exp $
+# @(#) $Id: whitespace.t,v 1.2 2005/07/21 20:10:17 dom Exp $
 use strict;
+use warnings;
 
 use Test::More tests => 1;
 use Test::XML;

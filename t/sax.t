@@ -1,6 +1,7 @@
-# @(#) $Id: sax.t,v 1.2 2003/03/17 09:45:51 dom Exp $
+# @(#) $Id: sax.t,v 1.3 2005/07/21 20:10:17 dom Exp $
 
 use strict;
+use warnings;
 
 use Test::More;
 

@@ -1,5 +1,6 @@
-# @(#) $Id: order.t,v 1.2 2003/05/11 18:16:50 dom Exp $
+# @(#) $Id: order.t,v 1.3 2005/07/21 20:10:16 dom Exp $
 use strict;
+use warnings;
 
 use Test::More tests => 3;
 use Test::XML;

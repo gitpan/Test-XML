@@ -1,6 +1,7 @@
-# @(#) $Id: maint.t,v 1.2 2003/03/14 15:11:27 dom Exp $
+# @(#) $Id: maint.t,v 1.3 2005/07/21 20:10:15 dom Exp $
 
 use strict;
+use warnings;
 
 use Test::More;
 

@@ -1,6 +1,7 @@
-# @(#) $Id: Makefile.PL,v 1.2 2003/03/14 16:01:01 dom Exp $
+# @(#) $Id: Makefile.PL,v 1.4 2005/07/21 20:10:07 dom Exp $
 
 use strict;
+require 5.006;
 
 use ExtUtils::MakeMaker;
 
@@ -11,9 +12,10 @@ WriteMakefile(
     PREREQ_PM    => {
         'Test::More'        => 0,
         'XML::SemanticDiff' => 0.95,
+        'XML::Parser'       => 2.34,
     },
-    AUTHOR   => 'Dominic Mitchell <cpan@semantico.com>',
-    PL_FILES => {},                                        # To ignore Build.PL.
+    AUTHOR => 'Dominic Mitchell <cpan2 (at) semantico.com>',
+    PL_FILES => {},    # To ignore Build.PL.
 );
 
 # Local Variables:

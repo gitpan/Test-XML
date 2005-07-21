@@ -1,4 +1,4 @@
-# @(#) $Id: xpath.t,v 1.3 2003/05/16 22:36:23 dom Exp $
+# @(#) $Id: xpath.t,v 1.5 2005/07/21 20:10:18 dom Exp $
 
 use strict;
 use warnings;
