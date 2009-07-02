@@ -1,5 +1,5 @@
 package Test::XML::XPath;
-# @(#) $Id: XPath.pm,v 1.10 2005/07/21 20:10:12 dom Exp $
+# @(#) $Id$
 
 use strict;
 use warnings;
@@ -13,8 +13,6 @@ our $VERSION = '0.03';
 # Call this early so that lack of a suitable class will be picked up
 # when we're imported, not on first use.
 _find_xpath_class();
-
-my $Test = Test::Builder->new;
 
 #---------------------------------------------------------------------
 # Import shenanigans.  Copied from Test::Pod...
@@ -30,6 +28,7 @@ sub import {
     *{ $caller . '::set_xpath_processor' } = \&set_xpath_processor;
     *{ $caller . '::unlike_xpath' }        = \&unlike_xpath;
 
+    my $Test = Test::Builder->new;
     $Test->exported_to( $caller );
     $Test->plan( @_ );
 }
@@ -42,6 +41,8 @@ sub like_xpath {
     my ($input, $statement, $test_name) = @_;
     croak "usage: like_xpath(xml,xpath[,name])"
       unless $input && $statement;
+
+    my $Test = Test::Builder->new;
     my $ok = eval {
         my $xp = _make_xpath( $input );
         return $xp->exists( $statement );
@@ -64,6 +65,8 @@ sub unlike_xpath {
     my ($input, $statement, $test_name) = @_;
     croak "usage: unlike_xpath(xml,xpath[,name])"
       unless $input && $statement;
+
+    my $Test = Test::Builder->new;
     my $ok = eval {
         my $xp = _make_xpath( $input );
         return ! $xp->exists( $statement );
@@ -86,6 +89,8 @@ sub is_xpath {
     my ($input, $statement, $expected, $test_name) = @_;
     croak "usage: is_xpath(xml,xpath,expected[,name])"
       unless $input && $statement && $expected;
+
+    my $Test = Test::Builder->new;
     my $got = eval {
         my $xp = _make_xpath( $input );
         $xp->findvalue( $statement );

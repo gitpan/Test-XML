@@ -1,5 +1,5 @@
 package Test::XML;
-# @(#) $Id: XML.pm,v 1.14 2005/07/21 20:10:09 dom Exp $
+# @(#) $Id$
 
 use strict;
 use warnings;
@@ -9,9 +9,7 @@ use Test::Builder;
 use XML::SemanticDiff;
 use XML::Parser;
 
-our $VERSION = '0.07';
-
-my $Test = Test::Builder->new;
+our $VERSION = '0.08';
 
 #---------------------------------------------------------------------
 # Import shenanigans.  Copied from Test::Pod...
@@ -27,6 +25,7 @@ sub import {
     *{ $caller . '::is_well_formed_xml' } = \&is_well_formed_xml;
     *{ $caller . '::is_good_xml' }        = \&is_well_formed_xml;
 
+    my $Test = Test::Builder->new;
     $Test->exported_to( $caller );
     $Test->plan( @_ );
 }
@@ -39,6 +38,8 @@ sub is_xml {
     my ($input, $expected, $test_name) = @_;
     croak "usage: is_xml(input,expected,test_name)"
         unless defined $input && defined $expected;
+
+    my $Test = Test::Builder->new;
     my $differ = XML::SemanticDiff->new;
     my @diffs = eval { $differ->compare( $expected, $input ) };
     if ( @diffs ) {
@@ -63,6 +64,8 @@ sub isnt_xml {
     my ($input, $mustnotbe, $test_name) = @_;
     croak "usage: isnt_xml(input,mustnotbe,test_name)"
         unless defined $input && defined $mustnotbe;
+
+    my $Test = Test::Builder->new;
     my $differ = XML::SemanticDiff->new;
     my @diffs = eval { $differ->compare( $mustnotbe, $input ) };
     if ( $@ ) {
@@ -85,6 +88,8 @@ sub is_well_formed_xml {
     my ($input, $test_name) = @_;
     croak "usage: is_well_formed_xml(input,test_name)"
         unless defined $input;
+
+    my $Test = Test::Builder->new;
     my $parser = XML::Parser->new;
     eval { $parser->parse($input) };
     if ( $@ ) {

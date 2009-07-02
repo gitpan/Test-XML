@@ -1,4 +1,4 @@
-# @(#) $Id: Build.PL,v 1.6 2005/07/21 20:10:06 dom Exp $
+# @(#) $Id$
 use strict;
 use Module::Build;
 

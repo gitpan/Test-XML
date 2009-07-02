@@ -1,4 +1,4 @@
-# @(#) $Id: Makefile.PL,v 1.4 2005/07/21 20:10:07 dom Exp $
+# @(#) $Id$
 
 use strict;
 require 5.006;

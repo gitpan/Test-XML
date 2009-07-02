@@ -1,4 +1,4 @@
-# @(#) $Id: twig.t,v 1.4 2005/07/21 20:10:17 dom Exp $
+# @(#) $Id$
 
 use strict;
 use warnings;

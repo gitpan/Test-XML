@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::XML.
 
+0.08	Wed Jul  1 23:53:57 BST 2009
+	- Don't cache things that are no longer singletons.
+	  Thanks to Ovid. <http://use.perl.org/~Ovid/journal/39188>
+
 0.07	Thu Jul 21 12:44:31 BST 2005
 	- Added is_well_formed_xml() from Curtis Ovid Poe.
 	- Make minimum perl version 5.6.0.
@@ -27,4 +31,4 @@ Revision history for Perl extension Test::XML.
 0.01	Fri Mar 14 14:59:03 GMT 2003
 	- original version
 
-@(#) $Id: Changes,v 1.12 2005/07/21 20:13:11 dom Exp $
+@(#) $Id$

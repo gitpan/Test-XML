@@ -1,5 +1,5 @@
 package Test::XML::SAX;
-# @(#) $Id: SAX.pm,v 1.5 2005/07/21 20:10:11 dom Exp $
+# @(#) $Id$
 
 use strict;
 use warnings;
@@ -14,8 +14,6 @@ use XML::SAX::Writer;
 
 our $VERSION = '0.01';
 
-my $Test = Test::Builder->new;
-
 sub import {
     my $self   = shift;
     my $caller = caller;
@@ -24,6 +22,7 @@ sub import {
     *{ $caller . '::test_sax' }             = \&test_sax;
     *{ $caller . '::test_all_sax_parsers' } = \&test_all_sax_parsers;
 
+    my $Test = Test::Builder->new;
     $Test->exported_to( $caller );
     $Test->plan( @_ );
 }
@@ -33,6 +32,7 @@ sub test_sax {
     croak "usage: test_sax(handler,input,expected,[test_name])"
         unless $handler && ref $handler && $input && $expected;
 
+    my $Test = Test::Builder->new;
     my $result = '';
     eval {
         my $w = XML::SAX::Writer->new( Output => \$result );

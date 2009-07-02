@@ -1,4 +1,4 @@
-# @(#) $Id: whitespace.t,v 1.2 2005/07/21 20:10:17 dom Exp $
+# @(#) $Id$
 use strict;
 use warnings;
 

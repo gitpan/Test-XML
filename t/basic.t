@@ -1,4 +1,4 @@
-# @(#) $Id: basic.t,v 1.5 2005/07/21 20:10:15 dom Exp $
+# @(#) $Id$
 
 use strict;
 use warnings;

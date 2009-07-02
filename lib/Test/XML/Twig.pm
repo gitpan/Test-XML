@@ -1,5 +1,5 @@
 package Test::XML::Twig;
-# @(#) $Id: Twig.pm,v 1.5 2005/07/21 20:10:12 dom Exp $
+# @(#) $Id$
 
 use strict;
 use warnings;
@@ -12,8 +12,6 @@ use XML::Twig;
 
 our $VERSION = '0.01';
 
-my $Test = Test::Builder->new;
-
 sub import {
     my $self   = shift;
     my $caller = caller;
@@ -23,6 +21,7 @@ sub import {
     *{ $caller . '::test_twig_handler' }  = \&test_twig_handler;
     *{ $caller . '::test_twig_handlers' } = \&test_twig_handlers;
 
+    my $Test = Test::Builder->new;
     $Test->exported_to( $caller );
     $Test->plan( @_ );
 }
@@ -46,6 +45,7 @@ sub test_twig_handler {
             && $expected
             && $test_name;
     local $Test::Builder::Level = $Test::Builder::Level + 1;
+    my $Test = Test::Builder->new;
     my $t = get_twig( $input );
     if ( $t ) {
         my $el = ( $cond ? $t->root->first_child( $cond ) : $t->root );
@@ -76,6 +76,7 @@ sub test_twig_handlers {
             && $expected
             && $test_name;
     local $Test::Builder::Level = $Test::Builder::Level + 1;
+    my $Test = Test::Builder->new;
     my $t = get_twig( $input, %$twig_args );
     if ( $t ) {
         if (ref $expected) {
